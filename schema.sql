@@ -58,8 +58,10 @@ CREATE TABLE api.piece (
 	turn INTEGER NOT NULL,
 	square SQUARE_TYPE NOT NULL,
 	colour COLOUR_TYPE NOT NULL,
-	type PIECE_TYPE NOT NULL
+	type PIECE_TYPE NOT NULL,
+  UNIQUE (game_id, turn, square)
 );
+
 
 INSERT INTO api.piece (game_id, turn, square, colour, type)
 VALUES

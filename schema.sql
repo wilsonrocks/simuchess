@@ -75,3 +75,5 @@ GRANT SELECT ON api.player to web_anon;
 GRANT SELECT ON api.game to web_anon;
 GRANT SELECT ON api.gameinfo to web_anon;
 GRANT SELECT ON api.piece to web_anon;
+
+\i functions.sql

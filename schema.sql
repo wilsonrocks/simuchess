@@ -2,6 +2,8 @@ DROP DATABASE IF EXISTS simuchess;
 CREATE DATABASE simuchess;
 \connect simuchess;
 
+CREATE EXTENSION pgcrypto;
+
 CREATE SCHEMA api;
 
 CREATE TYPE COLOUR_TYPE AS ENUM ('black', 'white');
@@ -21,12 +23,13 @@ CREATE TABLE api.player (
 id SERIAL PRIMARY KEY,
 username TEXT UNIQUE NOT NULL,
 name TEXT NOT NULL,
-email TEXT UNIQUE);
+email TEXT UNIQUE,
+pwhash TEXT NOT NULL);
 
-INSERT INTO api.player (username, name, email)
+INSERT INTO api.player (username, name, email, pwhash)
 VALUES
-('wilsonrocks', 'James Wilson', 'james@james.com'),
-('zeph', 'Zeph Auerbach', 'zeph@zeph.com');
+('wilsonrocks', 'James Wilson', 'james@james.com', crypt('shelley', gen_salt('bf', 8))),
+('zeph', 'Zeph Auerbach', 'zeph@zeph.com', crypt('emily', gen_salt('bf', 8)));
 
 CREATE TABLE api.game (
 id SERIAL PRIMARY KEY,

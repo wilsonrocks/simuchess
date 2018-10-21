@@ -3,21 +3,36 @@ CREATE TABLE api.player (
 	username TEXT UNIQUE NOT NULL,
 	name TEXT NOT NULL,
 	email TEXT UNIQUE,
-	pwhash TEXT NOT NULL);
+	password TEXT NOT NULL);
 
-INSERT INTO api.player (username, name, email, pwhash)
+CREATE FUNCTION hash_password()
+  RETURNS TRIGGER AS
+  $func$
+
+    BEGIN
+      NEW.password = crypt(NEW.password, gen_salt('bf', 8));
+      RETURN NEW;
+    END
+
+  $func$ LANGUAGE plpgsql;
+
+CREATE TRIGGER hash_password_for_new_users
+BEFORE INSERT ON api.player FOR EACH ROW
+EXECUTE PROCEDURE hash_password();
+
+INSERT INTO api.player (username, name, email, password)
 VALUES
 (
 	'wilsonrocks',
   'James Wilson',
   'james@james.com',
-  crypt('shelley', gen_salt('bf', 8))
+  'shelley'
 ),
 (
   'zeph',
   'Zeph Auerbach',
   'zeph@zeph.com',
-  crypt('emily', gen_salt('bf', 8))
+  'emily'
 );
 
 CREATE TABLE api.game (

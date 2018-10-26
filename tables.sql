@@ -5,12 +5,12 @@ CREATE TABLE api.player (
 	email TEXT UNIQUE,
 	password TEXT NOT NULL);
 
-CREATE FUNCTION hash_password()
+CREATE FUNCTION api.hash_password()
   RETURNS TRIGGER AS
   $func$
 
     BEGIN
-      NEW.password = crypt(NEW.password, gen_salt('bf', 8));
+      NEW.password = public.crypt(NEW.password, public.gen_salt('bf', 8));
       RETURN NEW;
     END
 
@@ -18,7 +18,7 @@ CREATE FUNCTION hash_password()
 
 CREATE TRIGGER hash_password_for_new_users
 BEFORE INSERT ON api.player FOR EACH ROW
-EXECUTE PROCEDURE hash_password();
+EXECUTE PROCEDURE api.hash_password();
 
 INSERT INTO api.player (username, name, email, password)
 VALUES
@@ -77,7 +77,12 @@ VALUES
 (2, 1, 'h1', 'black', 'pawn'),
 (2, 1, 'c6', 'white', 'queen');
 
-GRANT SELECT ON api.player to web_anon;
+GRANT SELECT, INSERT ON api.player to web_anon;
+
+GRANT EXECUTE ON FUNCTION api.hash_password() to web_anon;
+
+GRANT UPDATE, SELECT ON api.player_id_seq to web_anon;
+
 GRANT SELECT ON api.game to web_anon;
 GRANT SELECT ON api.gameinfo to web_anon;
 GRANT SELECT ON api.piece to web_anon;

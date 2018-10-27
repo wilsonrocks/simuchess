@@ -21,22 +21,35 @@
         <input type="password" v-model="password"/>
       </label>
 
+      <button v-on:click.prevent="createPlayerApiCall">
+        Create Player
+      </button>
+
     </form>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: "CreatePlayer",
   props: {},
-  data() {
+  data: () => {
     return {
       username: "",
       name: "",
       email: "",
       password: ""
     };
-  }
+  },
+  methods: {
+    createPlayerApiCall () {
+      const payload = {...this.$data};
+      axios.post('http://localhost:3000/player', payload);
+    }
+  },
+
 };
 </script>
 

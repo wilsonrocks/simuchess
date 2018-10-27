@@ -77,7 +77,7 @@ VALUES
 (2, 1, 'h1', 'black', 'pawn'),
 (2, 1, 'c6', 'white', 'queen');
 
-GRANT SELECT, INSERT ON api.player to web_anon;
+GRANT SELECT, INSERT, UPDATE ON api.player to web_anon;
 
 GRANT EXECUTE ON FUNCTION api.hash_password() to web_anon;
 

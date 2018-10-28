@@ -1,5 +1,6 @@
 <template>
   <div class="create-player">
+    <h2>Sign up</h2>
     <form>
       <label>
         Username

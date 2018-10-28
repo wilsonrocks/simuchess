@@ -6,7 +6,6 @@ CREATE EXTENSION pgcrypto;
 
 CREATE SCHEMA api;
 
-
 \i enums.sql
 
 
@@ -16,3 +15,4 @@ GRANT USAGE ON SCHEMA api to web_anon;
 
 \i tables.sql
 \i functions.sql
+\i views/stats.sql

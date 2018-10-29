@@ -1,5 +1,5 @@
 CREATE FUNCTION api.setup_board(INTEGER)
-RETURNS void AS 
+RETURNS void AS
 $$
 DELETE FROM api.piece WHERE game_id=$1;
 INSERT INTO api.piece (game_id, turn, square, colour, type)
@@ -39,3 +39,31 @@ VALUES
 $$
 
 LANGUAGE SQL;
+
+CREATE OR REPLACE FUNCTION api.login(given_username TEXT, given_password TEXT) returns TEXT AS
+$$
+DECLARE valid boolean;
+BEGIN
+  SELECT
+    count(*)>0
+    FROM api.player
+    WHERE
+    api.player.password = public.crypt(given_password, api.player.password)
+    AND api.player.username = given_username
+  INTO valid;
+
+  IF valid = true THEN
+  return sign(
+    json_build_object(
+      'username',
+      given_username,
+      'role',
+      'player'
+    )
+  , 'hotpapa');
+  ELSE
+  return null;
+  END IF;
+END
+$$ language plpgsql;
+

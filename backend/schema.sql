@@ -3,6 +3,7 @@ CREATE DATABASE simuchess;
 \connect simuchess;
 
 CREATE EXTENSION pgcrypto;
+CREATE EXTENSION pgjwt;
 
 CREATE SCHEMA api;
 

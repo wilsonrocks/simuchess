@@ -1,4 +1,4 @@
-CREATE FUNCTION api.setup_board(INTEGER)
+CREATE FUNCTION api.setup_board(game INTEGER)
 RETURNS void AS
 $$
 DELETE FROM api.piece WHERE game_id=$1;
@@ -40,6 +40,7 @@ $$
 
 LANGUAGE SQL;
 
+
 CREATE OR REPLACE FUNCTION api.login(given_username TEXT, given_password TEXT) returns TEXT AS
 $$
 DECLARE valid boolean;
@@ -48,7 +49,7 @@ BEGIN
     count(*)>0
     FROM api.player
     WHERE
-    api.player.password = public.crypt(given_password, api.player.password)
+    api.player.password = crypt(given_password, api.player.password)
     AND api.player.username = given_username
   INTO valid;
 
@@ -65,5 +66,4 @@ BEGIN
   return null;
   END IF;
 END
-$$ language plpgsql;
-
+$$ language plpgsql SET search_path = public, api;

@@ -26,6 +26,8 @@
         Create Player
       </button>
 
+      <span v-if="error" class="error">Something Went Wrong</span>
+
     </form>
   </div>
 </template>
@@ -36,18 +38,26 @@ import axios from 'axios';
 export default {
   name: "CreatePlayer",
   props: {},
-  data: () => {
-    return {
-      username: "",
-      name: "",
-      email: "",
-      password: ""
-    };
-  },
+  data: () => ({
+    username: "",
+    name: "",
+    email: "",
+    password: "",
+    error: false,
+  }),
   methods: {
     createPlayerApiCall () {
-      const payload = {...this.$data};
-      axios.post('http://localhost:3000/player', payload);
+      const {username, name, email, password} = this.$data;
+      const payload = {username, name, email, password};
+      axios.post("http://localhost:3000/player", payload)
+      .then(response => {
+        this.$data.error = false;
+      })
+      .catch(err => {
+        debugger;
+        this.$data.error = true
+      });
+      ;
     }
   },
 
@@ -61,5 +71,9 @@ export default {
   label {
     display: block;
   }
+}
+
+.error {
+  color: red;
 }
 </style>

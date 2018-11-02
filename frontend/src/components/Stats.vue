@@ -9,17 +9,17 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 
 export default {
-  name: "Stats",
+  name: 'Stats',
   data: () => ({
     dataReceived: false,
-    stats: {}
+    stats: {},
   }),
   mounted() {
-    axios.get("http://localhost:3000/stats").then(response => {
-      const {data} = response;
+    axios.get('http://localhost:3000/stats').then(response => {
+      const { data } = response;
       this.dataReceived = true;
       this.stats = data[0];
     });

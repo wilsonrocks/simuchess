@@ -36,31 +36,29 @@
 import axios from 'axios';
 
 export default {
-  name: "CreatePlayer",
+  name: 'CreatePlayer',
   props: {},
   data: () => ({
-    username: "",
-    name: "",
-    email: "",
-    password: "",
+    username: '',
+    name: '',
+    email: '',
+    password: '',
     error: false,
   }),
   methods: {
-    createPlayerApiCall () {
-      const {username, name, email, password} = this.$data;
-      const payload = {username, name, email, password};
-      axios.post("http://localhost:3000/player", payload)
-      .then(response => {
-        this.$data.error = false;
-      })
-      .catch(err => {
-        debugger;
-        this.$data.error = true
-      });
-      ;
-    }
+    createPlayerApiCall() {
+      const { username, name, email, password } = this.$data;
+      const payload = { username, name, email, password };
+      axios
+        .post('http://localhost:3000/player', payload)
+        .then(() => {
+          this.$data.error = false;
+        })
+        .catch(() => {
+          this.$data.error = true;
+        });
+    },
   },
-
 };
 </script>
 

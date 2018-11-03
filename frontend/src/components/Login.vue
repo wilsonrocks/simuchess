@@ -49,8 +49,6 @@ export default {
 
 <style lang="scss">
 .login {
-  border: 1px solid black;
-  display: inline-block;
   label {
     display: block;
   }

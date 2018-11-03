@@ -64,8 +64,6 @@ export default {
 
 <style scoped lang="scss">
 .create-player {
-  border: 1px solid black;
-  display: inline-block;
   label {
     display: block;
   }

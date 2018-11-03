@@ -29,7 +29,5 @@ export default {
 
 <style lang="scss">
 .stats {
-  border: solid 1px black;
-  display: inline-block;
 }
 </style>

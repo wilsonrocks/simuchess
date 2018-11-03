@@ -41,23 +41,24 @@ $$
 LANGUAGE SQL;
 
 
-CREATE OR REPLACE FUNCTION api.login(given_username TEXT, given_password TEXT) returns TEXT AS
+CREATE OR REPLACE FUNCTION api.login(username TEXT, password TEXT) returns TEXT AS
 $$
+#variable_conflict use_variable
 DECLARE valid boolean;
 BEGIN
   SELECT
     count(*)>0
     FROM api.player
     WHERE
-    api.player.password = crypt(given_password, api.player.password)
-    AND api.player.username = given_username
+    api.player.password = crypt(password, api.player.password)
+    AND api.player.username = username
   INTO valid;
 
   IF valid = true THEN
   return sign(
     json_build_object(
       'username',
-      given_username,
+      username,
       'role',
       'player'
     )

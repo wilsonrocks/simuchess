@@ -34,10 +34,11 @@ export default {
   }),
   methods: {
     login() {
+      const { username, password } = this.$data;
       return axios
         .post('http://localhost:3000/rpc/login', {
-          given_username: this.$data.username,
-          given_password: this.$data.password,
+          username,
+          password,
         })
         .then(({ data }) => {
           this.$data.jwt = data;

@@ -28,6 +28,4 @@ export default {
 </script>
 
 <style lang="scss">
-.stats {
-}
 </style>

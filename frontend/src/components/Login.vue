@@ -31,6 +31,7 @@ export default {
     username: '',
     password: '',
     jwt: '',
+    error: false,
   }),
   methods: {
     login() {
@@ -41,7 +42,10 @@ export default {
           password,
         })
         .then(({ data }) => {
-          this.$data.jwt = data;
+          this.$emit('loggedIn', data);
+        })
+        .catch(() => {
+          this.error = true;
         });
     },
   },
@@ -53,5 +57,9 @@ export default {
   label {
     display: block;
   }
+}
+
+.error {
+  color: red;
 }
 </style>

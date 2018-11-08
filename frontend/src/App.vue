@@ -3,7 +3,11 @@
     <h1>Simuchess</h1>
     <CreatePlayer class="tile"/>
     <Stats class="tile"/>
-    <Login class="tile"/>
+    <Login
+      class="tile"
+      v-on:loggedIn="setToken"
+      v-if="!jwt"
+    />
   </div>
 </template>
 
@@ -18,6 +22,14 @@ export default {
     CreatePlayer,
     Stats,
     Login,
+  },
+  data: () => ({
+    jwt: null,
+  }),
+  methods: {
+    setToken(token) {
+      this.jwt = token;
+    },
   },
 };
 </script>

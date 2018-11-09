@@ -62,7 +62,7 @@ BEGIN
       'role',
       'player'
     )
-  , 'hotpapa');
+  , 'apfps7hgkc9gGYWzwStGhskWWgoSvOhij');
   ELSE
   return null;
   END IF;
